@@ -1,0 +1,30 @@
+CODE SEGMENT
+    ASSUME CS:CODE
+START:
+    MOV AX, 0000H
+    MOV DS, AX
+    MOV SI, 0
+    MOV DX, 0000H
+    MOV CX, 8
+W_RAM:
+    MOV [SI], DL
+    INC SI
+    INC DX
+    LOOP W_RAM
+PRE:
+    MOV SI, 0
+    MOV CX, 8
+    MOV DX, 0000H
+R_RAM: 
+    MOV AL, [SI]
+    MOV BX, CX
+    MOV CX, 8000H
+    LOOP $ 
+    MOV CX, BX
+    OUT DX, AL
+    INC SI
+    LOOP R_RAM
+ENDLESS2:
+    JMP PRE
+CODE ENDS
+    END START
